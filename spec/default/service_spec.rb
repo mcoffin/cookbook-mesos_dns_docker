@@ -7,4 +7,8 @@ describe 'mesos_dns_docker::default' do
   it 'creates service[mesos-dns]' do
     expect(chef_run).to enable_service('mesos-dns')
   end
+
+  it 'creates file[/etc/mesos-dns-config.json]' do
+    expect(chef_run).to create_file('/etc/mesos-dns-config.json')
+  end
 end
