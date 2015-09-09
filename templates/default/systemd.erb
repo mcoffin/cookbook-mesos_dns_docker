@@ -7,6 +7,6 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill mesos-dns
 ExecStartPre=-/usr/bin/docker rm mesos-dns
-ExecStartPre=/usr/bin/docker pull <?= @image ?>
-ExecStart=/usr/bin/docker run --name mesos-dns -p 53:8053/udp -p 53:8053/tcp -v /etc/mesos-dns-config.json:/config.json <?= @image ?> /mesos-dns -config=config.json
+ExecStartPre=/usr/bin/docker pull <%= @image %>
+ExecStart=/usr/bin/docker run --name mesos-dns -p 53:8053/udp -p 53:8053/tcp -v /etc/mesos-dns-config.json:/config.json <%= @image %> /mesos-dns -config=config.json
 ExecStop=/usr/bin/docker stop mesos-dns

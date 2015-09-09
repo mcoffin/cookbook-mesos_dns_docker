@@ -7,7 +7,7 @@
 require 'json'
 
 docker_service 'default' do
-  action :start
+  action [:create, :start]
 end
 
 docker_image 'mesosphere/mesos-dns' do
@@ -24,6 +24,11 @@ file '/etc/mesos-dns-config.json' do
   notifies :restart, 'service[mesos-dns]', :delayed
 end
 
+execute 'systemctl daemon-reload' do
+  command 'systemctl daemon-reload'
+  action :nothing
+end
+
 case node['mesos_dns']['init']
 when 'systemd'
   template '/etc/systemd/system/mesos-dns.service' do
@@ -34,6 +39,7 @@ when 'systemd'
     variables(
       image: "mesosphere/mesos-dns:#{node['mesos_dns']['version']}"
     )
+    notifies :run, 'execute[systemctl daemon-reload]', :immediately
   end
   service 'mesos-dns' do
     action :enable

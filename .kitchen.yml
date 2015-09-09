@@ -13,5 +13,9 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[apt]
+      - recipe[mesos_dns_docker::test_iptables]
       - recipe[mesos_dns_docker]
     attributes:
+      docker:
+        version: 1.8.1
