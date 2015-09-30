@@ -10,7 +10,7 @@ docker_service 'default' do
   action [:create, :start]
 end
 
-docker_image 'mesosphere/mesos-dns' do
+docker_image 'mcoffin/mesos-dns' do
   tag node['mesos_dns']['version']
   action :pull
   notifies :restart, 'service[mesos-dns]', :delayed
@@ -37,7 +37,7 @@ when 'systemd'
     group 'root'
     mode '0755'
     variables(
-      image: "mesosphere/mesos-dns:#{node['mesos_dns']['version']}"
+      image: "mcoffin/mesos-dns:#{node['mesos_dns']['version']}"
     )
     notifies :run, 'execute[systemctl daemon-reload]', :immediately
   end

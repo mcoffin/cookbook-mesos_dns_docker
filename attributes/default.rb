@@ -1,4 +1,4 @@
-default['mesos_dns']['version'] = 'latest'
+default['mesos_dns']['version'] = 'v0.3.0'
 default['mesos_dns']['init'] = 'systemd'
 default['mesos_dns']['config'] = {
   zk: 'zk://52.8.148.165:2181/mesos',
